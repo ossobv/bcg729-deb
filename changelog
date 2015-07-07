@@ -1,0 +1,5 @@
+bcg729 (1.0.0-1) unstable; urgency=medium
+
+  * Initial release (Closes: #785480)
+
+ -- Felix Lechner <felix.lechner@gmail.com>  Sat, 16 May 2015 14:03:19 -0700
