@@ -12,8 +12,8 @@ Build-Depends:
 Standards-Version: 3.9.6
 Section: libs
 Homepage: http://www.linphone.org/technical-corner/bcg729/overview
-Vcs-Browser: http://anonscm.debian.org/cgit/pkg-voip/bcg729.git/
-Vcs-Git: git://anonscm.debian.org/pkg-voip/bcg729.git
+Vcs-Browser: https://github.com/BelledonneCommunications/bcg729
+Vcs-Git: git://git.linphone.org/bcg729.git
 
 Package: libbcg729-0
 Architecture: any
