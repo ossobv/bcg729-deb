@@ -5,7 +5,7 @@
 #export DH_VERBOSE=1
 
 # Uncomment this to change the hardening options
-#export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
 DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
 
@@ -14,13 +14,22 @@ DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
 		--with autotools-dev --with autoreconf \
 		--buildsystem=autoconf
 
+override_dh_auto_clean:
+	# Make sure README exists for Makefile.am DIST_COMMON files.
+	# See also autogen.sh.
+	touch ChangeLog README
+	dh_auto_clean
+
+# We don't override autoreconf using autogen.sh because we'd have to
+# handle the changes files and dpkg-source and patch suggestions.
+#override_dh_autoreconf:
+#	dh_autoreconf -- ./autogen.sh
+
 override_dh_auto_configure:
-	dh_auto_configure -- --enable-static --enable-shared --disable-tests
+	dh_auto_configure -- --enable-static --enable-shared
 
 override_dh_auto_install:
 	dh_auto_install --destdir=debian/tmp
-	sed -i "/dependency_libs/ s/'.*'/''/" "$(CURDIR)"/debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/mediastreamer/plugins/msbcg729.la
 
 override_dh_strip:
 	dh_strip -plibbcg729-0 --dbg-package=libbcg729-0-dbg
-	dh_strip -pmediastreamer-plugin-g729 --dbg-package=mediastreamer-plugin-g729-dbg

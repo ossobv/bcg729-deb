@@ -1,3 +1,11 @@
+bcg729 (1.0.3-0osso1~deb8) jessie; urgency=medium
+
+  * Release for Asterisk G.729 codec: asterisk-g72x-g729.
+    See: https://github.com/ossobv/asterisk-g72x-deb
+  * Remove all mediastreamer stuff that we don't need.
+
+ -- Walter Doekes <wjdoekes+bcg729@osso.nl>  Fri, 09 Jun 2017 16:10:20 +0200
+
 bcg729 (1.0.0-1) unstable; urgency=medium
 
   * Initial release (Closes: #785480)
