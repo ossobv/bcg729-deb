@@ -1,0 +1,24 @@
+From 973b14d27422f4672b6bcb925c0b28f65d3c66dd Mon Sep 17 00:00:00 2001
+From: Johan Pascal <johan.pascal@belledonne-communications.com>
+Date: Fri, 16 Feb 2018 17:21:06 +0700
+Subject: [PATCH] Patterns updated to match previous commits if tests fail
+ please delete the test/pattern directory this will trigger the download of
+ updated patterns
+
+---
+ test/testCampaignAll.cmake | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/test/testCampaignAll.cmake b/test/testCampaignAll.cmake
+index 1ae203a..a76dfc8 100755
+--- a/test/testCampaignAll.cmake
++++ b/test/testCampaignAll.cmake
+@@ -10,7 +10,7 @@ if [ ! -d "patterns" ]; then
+    wget http://www.belledonne-communications.com/downloads/bcg729-patterns.zip
+    if [ -e bcg729-patterns.zip ]; then
+ 	# check file
+-	if [[ `openssl md5 bcg729-patterns.zip | grep -c a8a998f6838b052d05ba06d02b8612a1` -ne 0 ]]; then
++	if [[ `openssl md5 bcg729-patterns.zip | grep -c ee5702e17cff8484d1396e6f23f84305` -ne 0 ]]; then
+ 		# file ok, unzip it
+ 		unzip bcg729-patterns.zip
+ 	   	if [[ $? -ne 0 ]]; then

@@ -1,0 +1,65 @@
+Description: Fix so tests work with non-cmake dpkg-buildpackage
+ The tests failed to run because the CMAKE paths weren't expanded and
+ other paths did not work as expected. Fix the paths. Also cache the
+ bcg720-patterns.zip download.
+Author: Walter Doekes <wjdoekes+bcg729@osso.nl>
+Forwarded: no
+Last-Update: 2018-04-10
+
+--- a/test/testCampaignAll.cmake
++++ b/test/testCampaignAll.cmake
+@@ -4,10 +4,13 @@
+ 
+ # Do we have a patterns directory
+ if [ ! -d "patterns" ]; then
+-	rm -f ./bcg729-patterns.zip
+    # no pattern directory: download it from 
+    # http://www.belledonne-communications.com/downloads/bcg729-patterns.zip
+-   wget http://www.belledonne-communications.com/downloads/bcg729-patterns.zip
++   # reuse cached copy if available
++   if [ ! -f ./bcg729-patterns.zip ] || [[ `openssl md5 bcg729-patterns.zip | grep -c ee5702e17cff8484d1396e6f23f84305` -ne 0 ]]; then
++	rm -f ./bcg729-patterns.zip
++	wget http://www.belledonne-communications.com/downloads/bcg729-patterns.zip
++   fi
+    if [ -e bcg729-patterns.zip ]; then
+ 	# check file
+ 	if [[ `openssl md5 bcg729-patterns.zip | grep -c ee5702e17cff8484d1396e6f23f84305` -ne 0 ]]; then
+@@ -16,7 +19,8 @@ if [ ! -d "patterns" ]; then
+ 	   	if [[ $? -ne 0 ]]; then
+ 			echo "Error: unable to unzip correctly bcg729-patterns.zip, try to do it manually"
+ 		else	
+-			rm bcg729-patterns.zip
++			# rm bcg729-patterns.zip
++			true  # keep copy for reuse
+ 		fi
+ 	else
+ 		echo "Error: bad checksum on bcg729-patterns.zip downloaded from http://www.belledonne-communications.com/downloads/.\nTry again"
+--- a/test/testCampaign.cmake
++++ b/test/testCampaign.cmake
+@@ -26,7 +26,7 @@ use Term::ANSIColor;
+ # Tune the defaultMaxDiff associative array definition to modify
+ # the behavior of this script for any functional bloc under test
+ 
+-my $binDirectory = "./";
++my $binDirectory = "./bin/";
+ my $patternDirectory = "./patterns";
+ # softDiff: compare two CSV files with a margin of acceptance between the values found
+ # arguments : file1, file2, maximumDiff tolerated(value), maximum percentage abs((val1-val2)/val1)*100 tolerated
+--- a/test/Makefile.am
++++ b/test/Makefile.am
+@@ -1,5 +1,15 @@
+ SUBDIRS = bin
+ 
++$(srcdir)/testCampaign:
++	cp -f testCampaign.cmake $(srcdir)/testCampaign
++	sed -e 's/@CMAKE_CURRENT_BINARY_DIR@/$(srcdir)/g' testCampaign.cmake >$(srcdir)/testCampaign
++	chmod 755 $(srcdir)/testCampaign
++
++$(srcdir)/testCampaignAll:
++	cp -f testCampaignAll.cmake $(srcdir)/testCampaignAll
++	sed -e 's/@CMAKE_CURRENT_BINARY_DIR@/$(srcdir)/g' testCampaignAll.cmake >$(srcdir)/testCampaignAll
++	chmod 755 $(srcdir)/testCampaignAll
++
+ testCampaignAll-exec: $(srcdir)/testCampaignAll $(srcdir)/testCampaign
+ 	cp -f $(srcdir)/testCampaignAll testCampaignAll-exec
+ 	cp -f $(srcdir)/testCampaign testCampaign-exec

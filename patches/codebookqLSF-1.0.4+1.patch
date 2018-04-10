@@ -1,0 +1,25 @@
+From a71e68587dda27eec55dda62a75cb7fd486cec2a Mon Sep 17 00:00:00 2001
+From: JaccoCompier <jacco@cheaf.nl>
+Date: Thu, 11 May 2017 21:49:10 +0200
+Subject: [PATCH] Update decodeLSP.c
+
+codebookqLSF check started on index 1 instead of index 0
+---
+ src/decodeLSP.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/decodeLSP.c b/src/decodeLSP.c
+index d2e6576..1d4b217 100644
+--- a/src/decodeLSP.c
++++ b/src/decodeLSP.c
+@@ -95,8 +95,8 @@ void computeqLSF(word16_t *codebookqLSF, word16_t previousLCodeWord[MA_MAX_K][NB
+ 	insertionSort(codebookqLSF, NB_LSP_COEFF);
+ 
+ 	/* check for low limit on qLSF[0] */
+-	if (codebookqLSF[1]<qLSF_MIN) {
+-		codebookqLSF[1] = qLSF_MIN;
++	if (codebookqLSF[0]<qLSF_MIN) {
++		codebookqLSF[0] = qLSF_MIN;
+ 	}
+ 
+ 	/* check and rectify minimum distance between two consecutive qLSF */

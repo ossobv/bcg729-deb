@@ -1,2 +1,7 @@
+codebookqLSF-1.0.4+1.patch
+bestIntPitchDelay-1.0.4+2.patch
+patterns-md5-1.0.4+3.patch
+
 enable-subdir-objects.patch
-install-codec-library-normally.patch
+version.patch
+fix-tests.patch

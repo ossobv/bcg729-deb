@@ -1,0 +1,18 @@
+Description: Update version in configure.ac from 1.0.3 to 1.0.4
+ Because we now run autogen.sh, we get newly built files with the
+ configure.ac based versions.
+Author: Walter Doekes <wjdoekes+bcg729@osso.nl>
+Forwarded: no
+Last-Update: 2018-04-10
+
+--- a/configure.ac
++++ b/configure.ac
+@@ -3,7 +3,7 @@
+ 
+ 
+ 
+-AC_INIT([bcg729],[1.0.3])
++AC_INIT([bcg729],[1.0.4])
+ AC_CANONICAL_SYSTEM
+ AC_PREREQ(2.63)
+ AC_CONFIG_SRCDIR([src/encoder.c])

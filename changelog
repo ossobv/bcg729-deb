@@ -1,3 +1,13 @@
+bcg729 (1.0.4-0osso1+deb9) stretch; urgency=medium
+
+  * Bump bcg729 lib to 1.0.4; fix version in configure.ac.
+  * Build for stretch.
+  * Drop upstream-fixed install-codec-library-normally.patch.
+  * Hacks so we can test again. Also add necessary fixes from upstream
+    against 1.4.
+
+ -- Walter Doekes <wjdoekes+bcg729@osso.nl>  Tue, 10 Apr 2018 11:29:42 +0200
+
 bcg729 (1.0.3-0osso1~deb8) jessie; urgency=medium
 
   * Release for Asterisk G.729 codec: asterisk-g72x-g729.

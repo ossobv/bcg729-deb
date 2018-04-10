@@ -2,7 +2,7 @@
 # -*- makefile -*-
 
 # Uncomment this to turn on verbose mode.
-#export DH_VERBOSE=1
+# export DH_VERBOSE=1
 
 # Uncomment this to change the hardening options
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
@@ -20,10 +20,8 @@ override_dh_auto_clean:
 	touch ChangeLog README
 	dh_auto_clean
 
-# We don't override autoreconf using autogen.sh because we'd have to
-# handle the changes files and dpkg-source and patch suggestions.
-#override_dh_autoreconf:
-#	dh_autoreconf -- ./autogen.sh
+override_dh_autoreconf:
+	dh_autoreconf -- ./autogen.sh
 
 override_dh_auto_configure:
 	dh_auto_configure -- --enable-static --enable-shared
