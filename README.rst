@@ -3,7 +3,7 @@ OSSO build of the Bcg729 G729 speech codec
 
 Get source::
 
-    VER=1.0.3
+    VER=1.0.4
     curl \
       https://codeload.github.com/BelledonneCommunications/bcg729/tar.gz/$VER \
       >bcg729_$VER.orig.tar.gz
