@@ -1,5 +1,17 @@
-OSSO build of the Bcg729 G729 speech codec
-==========================================
+OSSO build of the Bcg729 shared library (G729 speech codec)
+===========================================================
+
+Using Docker::
+
+    ./Docker.build
+
+If the build succeeds, the built Debian packages are placed inside (a
+subdirectory of) ``Docker.out/``.
+
+
+------------
+Manual build
+------------
 
 Get source::
 

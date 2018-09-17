@@ -6,7 +6,8 @@ Build-Depends:
  debhelper (>= 9),
  autotools-dev,
  dh-autoreconf,
- pkg-config
+ pkg-config,
+ unzip, wget
 Standards-Version: 3.9.6
 Section: libs
 Homepage: http://www.linphone.org/technical-corner/bcg729/overview

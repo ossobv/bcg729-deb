@@ -1,3 +1,11 @@
+bcg729 (1.0.4-0osso2+d9) stretch; urgency=medium
+
+  * Rename from +deb9 to +d9.
+  * Add ./Docker.build to build instructions.
+  * Add missing wget/unzip to control file (required by tests).
+
+ -- Walter Doekes <wjdoekes+bcg729@osso.nl>  Mon, 17 Sep 2018 17:37:29 +0200
+
 bcg729 (1.0.4-0osso1+deb9) stretch; urgency=medium
 
   * Bump bcg729 lib to 1.0.4; fix version in configure.ac.
