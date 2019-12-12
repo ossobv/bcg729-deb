@@ -1,0 +1,6 @@
+#!/bin/sh -ex
+#./Dockerfile.build ubuntu/xenial  # ubu16.04
+#./Dockerfile.build ubuntu/bionic  # ubu18.04
+#./Dockerfile.build debian/jessie  # deb8
+./Dockerfile.build debian/stretch # deb9
+./Dockerfile.build debian/buster  # deb10

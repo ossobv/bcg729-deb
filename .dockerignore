@@ -1,7 +1,8 @@
-Docker.build
-Docker.out
-Dockerfile
+/Dockerfile.build
+/Dockerfile.buildmany
+/Dockerfile.out
+/Dockerfile
 
-.cache
-.dockerignore
-.git
+/.cache
+/.dockerignore
+/.git

@@ -1,0 +1,60 @@
+#!/bin/bash
+cd "$(dirname "$0")"  # jump to curdir
+
+# Pass these on the command line.
+oscodename=${1:-debian/stretch}  # debian/stretch
+upname=bcg729
+upversion=${2:-1.0.4}       # bcg729 version
+debversion=${3:-0osso3}     # deb build version, e.g. 0osso2
+
+echo "Usage: $0 [$oscodename [$upversion [$debversion]]]"
+echo ".. continuing"
+
+osdistro=${oscodename%/*}   # debian (or ubuntu)
+oscodename=${oscodename#*/} # stretch (or bionic)
+osdistshort=${osdistro:0:3} # deb (or ubu)
+case $osdistro/$oscodename in
+debian/buster)  oscodenum=10;;
+debian/stretch) oscodenum=9;;
+debian/jessie)  oscodenum=8;;
+debian/wheezy)  oscodenum=7;;
+ubuntu/bionic)  oscodenum=18.04;;
+ubuntu/xenial)  oscodenum=16.04;;
+ubuntu/trusty)  oscodenum=14.04;;
+*) echo "ERROR: undefined OS: $osdistro/$oscodename" >&2 && exit 1
+esac
+_shortver=$osdistshort$oscodenum
+
+# Update changelog
+sed -i -e "1s/+\\(deb\\|ubu\\)[0-9.]*) [a-z]\\+;/+$_shortver) $oscodename;/" \
+    changelog
+
+# Docker disallows certain tokens in versions.
+dockversion=$(echo build-${upname}-${upversion}-${debversion}-${oscodename} |
+    sed -e 's/[^0-9A-Za-z_.-]/_/g')
+
+# Will build files.
+if ! docker build \
+    --pull \
+    --ulimit nofile=512 \
+    --build-arg osdistro=$osdistro \
+    --build-arg osdistshort=$osdistshort \
+    --build-arg oscodename=$oscodename \
+    --build-arg upname=$upname \
+    --build-arg upversion=$upversion \
+    --build-arg debepoch=$debepoch \
+    --build-arg debversion=$debversion \
+    -t $dockversion \
+    -f Dockerfile \
+    .
+then
+    ret=$?
+    echo "fail" >&2
+    exit $ret
+fi
+
+# Copy files to ./Dockerfile.out
+test -d Dockerfile.out/$oscodename || mkdir -p Dockerfile.out/$oscodename
+docker run $dockversion sh -c 'cd /dist; tar -zc *' |
+    tar -zxvC Dockerfile.out/$oscodename/ |
+    sed -e 's#$# -> Dockerfile.out/'$oscodename'/#'

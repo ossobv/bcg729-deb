@@ -1,20 +1,24 @@
-FROM debian:stretch
-MAINTAINER Walter Doekes <wjdoekes+bcg729@osso.nl>
-
-# This one should be before the From, but it's not legal for Docker 1.13
-# yet. Use a hack to s/debian:stretch/debian:OTHER/g above instead.
+ARG osdistro=debian
 ARG oscodename=stretch
-ARG upname=bcg729
-ARG upversion=1.0.4
-ARG debepoch=
-ARG debversion=0osso0
 
-ENV DEBIAN_FRONTEND noninteractive
+FROM $osdistro:$oscodename
+LABEL maintainer="Walter Doekes <wjdoekes+bcg729@osso.nl>"
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+# debian, deb, stretch, bcg729, 1.0.4, '', 0osso1
+ARG osdistro
+ARG osdistshort
+ARG oscodename
+ARG upname
+ARG upversion
+ARG debepoch=
+ARG debversion
 
 # Copy debian dir, check version
 RUN mkdir -p /build/debian
 COPY ./changelog /build/debian/changelog
-RUN . /etc/os-release && fullversion="${upversion}-${debversion}+${ID%%[be]*}${VERSION_ID}" && \
+RUN . /etc/os-release && fullversion="${upversion}-${debversion}+${osdistshort}${VERSION_ID}" && \
     expected="${upname} (${debepoch}${fullversion}) ${oscodename}; urgency=medium" && \
     head -n1 /build/debian/changelog && \
     if test "$(head -n1 /build/debian/changelog)" != "${expected}"; \
@@ -73,14 +77,10 @@ RUN DEB_BUILD_OPTIONS=parallel=6 dpkg-buildpackage -us -uc -sa
 # for starters dpkg -i tests?
 
 # Write output files (store build args in ENV first).
-ENV oscodename=$oscodename \
+ENV oscodename=$oscodename osdistshort=$osdistshort \
     upname=$upname upversion=$upversion debversion=$debversion
-CMD . /etc/os-release && fullversion=${upversion}-${debversion}+${ID%%[be]*}${VERSION_ID} && \
-    dist=Docker.out && \
-    if ! test -d "/${dist}"; then echo "Please mount ./${dist} for output" >&2; false; fi && \
-    echo && . /etc/os-release && mkdir "/${dist}/${oscodename}/${upname}_${fullversion}" && \
-    mv /build/*${fullversion}* "/${dist}/${oscodename}/${upname}_${fullversion}/" && \
-    mv /build/${upname}_${upversion}.orig.tar.gz "/${dist}/${oscodename}/${upname}_${fullversion}/" && \
-    chown -R ${UID}:root "/${dist}/${oscodename}" && \
-    cd / && find "${dist}/${oscodename}/${upname}_${fullversion}" -type f && \
-    echo && echo 'Output files created succesfully'
+RUN . /etc/os-release && fullversion=${upversion}-${debversion}+${osdistshort}${VERSION_ID} && \
+    mkdir -p /dist/${upname}_${fullversion} && \
+    mv /build/*${fullversion}* /dist/${upname}_${fullversion}/ && \
+    mv /build/${upname}_${upversion}.orig.tar.gz /dist/${upname}_${fullversion}/ && \
+    cd / && find dist/${upname}_${fullversion} -type f >&2
