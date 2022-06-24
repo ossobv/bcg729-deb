@@ -7,15 +7,6 @@ LABEL dockerfile-vcs=https://github.com/ossobv/bcg729-deb
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-# Set up build env
-RUN printf "%s\n" \
-    QUILT_PATCHES=debian/patches \
-    QUILT_NO_DIFF_INDEX=1 \
-    QUILT_NO_DIFF_TIMESTAMPS=1 \
-    'QUILT_REFRESH_ARGS="-p ab --no-timestamps --no-index"' \
-    'QUILT_DIFF_OPTS="--show-c-function"' \
-    >~/.quiltrc
-
 # This time no "keeping the build small". We only use this container for
 # building/testing and not for running, so we can keep files like apt
 # cache. We do this before copying anything and before getting lots of

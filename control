@@ -5,6 +5,7 @@ Uploaders: Mark Purcell <msp@debian.org>, Kilian Krause <kilian@debian.org>, Tza
 Build-Depends:
  cmake,
  debhelper (>= 9),
+ bcg729-dev,
  autotools-dev,
  dh-autoreconf,
  pkg-config,
