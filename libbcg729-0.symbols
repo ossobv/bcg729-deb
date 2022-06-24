@@ -1,4 +1,4 @@
-libbcg729.so.0 libbcg729-0 #MINVER#
+libbcg729.so.0 #PACKAGE# #MINVER#
  bcg729Decoder@Base 1.0.0
  bcg729Encoder@Base 1.0.0
  bcg729GetRFC3389Payload@Base 1.0.3

@@ -10,24 +10,7 @@ export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
 
 %:
-	dh $@ --parallel \
-		--with autotools-dev --with autoreconf \
-		--buildsystem=autoconf
-
-override_dh_auto_clean:
-	# Make sure README exists for Makefile.am DIST_COMMON files.
-	# See also autogen.sh.
-	touch ChangeLog README
-	dh_auto_clean
-
-override_dh_autoreconf:
-	dh_autoreconf -- ./autogen.sh
+	dh $@ --buildsystem=cmake --without autoreconf
 
 override_dh_auto_configure:
-	dh_auto_configure -- --enable-static --enable-shared
-
-override_dh_auto_install:
-	dh_auto_install --destdir=debian/tmp
-
-override_dh_strip:
-	dh_strip -plibbcg729-0 --dbg-package=libbcg729-0-dbg
+	dh_auto_configure -- -DENABLE_STATIC=YES -DENABLE_TESTS=NO

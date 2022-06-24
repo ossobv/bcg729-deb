@@ -3,6 +3,6 @@
 /Dockerfile.out
 /Dockerfile
 
-/.cache
 /.dockerignore
 /.git
+/.gitignore

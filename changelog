@@ -1,3 +1,10 @@
+bcg729 (1.1.1-0osso0+REL) stable; urgency=medium
+
+  * Bump to 1.1.1.
+  * Obsolete this package, as vanilla debian has this.
+
+ -- Walter Doekes <wjdoekes+bcg729@osso.nl>  Fri, 24 Jun 2022 16:10:30 +0200
+
 bcg729 (1.0.4-0osso3+deb9) stretch; urgency=medium
 
   * Renamed from +d9 to +deb9 again.

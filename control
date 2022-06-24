@@ -3,6 +3,7 @@ Priority: optional
 Maintainer: Debian VoIP Team <pkg-voip-maintainers@lists.alioth.debian.org>
 Uploaders: Mark Purcell <msp@debian.org>, Kilian Krause <kilian@debian.org>, Tzafrir Cohen <tzafrir@debian.org>
 Build-Depends:
+ cmake,
  debhelper (>= 9),
  autotools-dev,
  dh-autoreconf,
@@ -45,18 +46,3 @@ Description: Development files for the ITU G.729 compatible audio codec
  runs on many platforms, including ARM and x86.
  .
  This package contains the development files.
-
-Package: libbcg729-0-dbg
-Architecture: any
-Multi-Arch: same
-Section: debug
-Priority: extra
-Depends:
- libbcg729-0 (= ${binary:Version}),
- ${misc:Depends}
-Description: Debug symbols for the ITU G.729 compatible audio codec
- Bcg729 is an open source implementation of the ITU G729 Annex A
- speech codec. Written in C 99, the library is fully portable. It
- runs on many platforms, including ARM and x86.
- .
- This package contains the debugging symbols.
