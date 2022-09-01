@@ -1,3 +1,10 @@
+bcg729 (1.1.1-0osso1+REL) stable; urgency=medium
+
+  * Fix control file after Dockerfile cosmetic change and build breakage.
+    No actual difference against 1.1.1-0osso0.
+
+ -- Walter Doekes <wjdoekes+bcg729@osso.nl>  Thu, 01 Sep 2022 18:45:00 +0200
+
 bcg729 (1.1.1-0osso0+REL) stable; urgency=medium
 
   * Bump to 1.1.1.

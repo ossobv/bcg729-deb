@@ -7,7 +7,7 @@ oscodename=${1:-debian/bullseye}  # debian/stretch
 upname=bcg729
 upversion=${2:-1.1.1}       # bcg729 version
 debepoch=
-debversion=${3:-0osso0}     # deb build version, e.g. 0osso2
+debversion=${3:-0osso1}     # deb build version, e.g. 0osso2
 
 echo "Usage: $0 [$oscodename [$upversion [$debversion]]]"
 echo ".. continuing"
