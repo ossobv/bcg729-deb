@@ -1,7 +1,7 @@
 OSSO build of the Bcg729 shared library (G729 speech codec)
 ===========================================================
 
-*NOTE: This package is obsolete now that there is libbcg720-0 in vanilla
+*NOTE: This package is obsolete now that there is libbcg729-0 in vanilla
 Debian/Ubuntu.*
 
 
